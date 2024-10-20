@@ -1,0 +1,39 @@
+{extend name="base" /}
+
+{block name="title"}添加EXCEL资源{/block}
+{block name="content"}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">批量导入</h1>
+            <form action="{:url('admin/resource/importData')}" enctype="multipart/form-data" method="post"
+                class="needs-validation" novalidate>
+
+                <!-- EXCEL文件模板链接 -->
+                <div class="form-group">
+
+                    <a href="/static/resources/example.xlsx" class="btn btn-info">下载EXCEL文件模板</a>支持pantools工具批量分享的xlsx文件
+
+                </div>
+
+                <!-- 上传EXCEL文件 -->
+                <div class="form-group">
+                    <label for="exampleInputFile">上传EXCEL文件</label>
+                    <input type="file" class="form-control-file" name="file" id="exampleInputFile">
+                    <p class="help-block">请选择EXCEL文件上传</p>
+
+                </div>
+
+                <!-- 提交按钮 -->
+                <div class="form-group">
+
+                    <button type="submit" class="btn btn-primary">添加</button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{/block}

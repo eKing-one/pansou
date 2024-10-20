@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据库初始化</title>
+    <meta charset="UTF-8">
+    <title>初始化和下载</title>
+    <!--  start: core js/css -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--  end: core js/css -->
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+<!--        <img class="d-block mx-auto mb-4" src="__STATIC__/img/logo.png" alt="" width="72" height="72">-->
+        <h2>设置密码</h2>
+        <small>恭喜！你已经选择了一个可用的数据库。这是数据库初始化界面</small>
+    </div>
+
+    <div class="container">
+        <p class="lead">1.请设置一个管理员账号和密码，用来登录后台</p>
+        <div class="container">
+
+            <div class=" mb-3">
+                <label for="username">1,输入登录用户名，长度在3到15之间</label>
+                <input type="text" class="form-control" id="username" placeholder="" value="" required>
+
+            </div>
+            <div class="mb-3">
+                <label for="password">2,输入登录的密码，长度在5-15之间，且必须有英文和数字，可以有句号</label>
+                <input type="text" class="form-control" id="password" placeholder="" value="" required>
+
+            </div>
+
+
+            <button  class="btn btn-primary m-3" id="btn1" style="width: 10%;height: 55px">确认</button>
+
+
+            <div class="m-3" id="tip" style="color: #1c7430"></div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+<script>
+    $("#btn1").click(function(){
+        $('#tip').html('<p class="lead">请稍等。。。</p><div class=\"spinner-border text-success\"></div>');
+        $.ajax({
+            type : "POST",
+            async:true,
+            timeout:2000,
+            url:"../../install/init/checkPasswd",
+            data:{
+
+                username:$("#username").val(),
+                password:$("#password").val(),
+
+            },
+            success:function(result)
+            {
+                alert(result);
+                if(result=="成功") {
+                    window.location.href = '../../install/init/buildsql';
+                    //alert(result);
+                }
+                $('#tip').html('');
+            },
+            error:function (err) {
+
+                alert("网络原因出错，或者是服务器输入错误");
+                $('#tip').html('');
+            }
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,32 @@
+{extend name="base" /}
+
+{block name="title"}系统设置{/block}
+{block name="content"}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">系统设置</h1>
+
+            <form action="{:url('admin/Setting/save')}" method="post" class="needs-validation" novalidate>
+                {volist name="config" id="item"}
+                    <div class="form-group">
+                        <label for="{$item.name}">
+                            {if isset($configNames[$item.name]) && $configNames[$item.name] !== null}
+                                {$configNames[$item.name]}
+                            {else /}
+                                {$item.name}
+                            {/if}
+                        </label>
+                        <input type="text" class="form-control" id="{$item.name}" name="{$item.name}" value="{$item.value}" required>
+                        <div class="invalid-feedback">
+                            请输入{if isset($configNames[$item.name]) && $configNames[$item.name] !== null}{$configNames[$item.name]}{else /}{$item.name}{/if}。
+                        </div>
+                    </div>
+                {/volist}
+                <button type="submit" class="btn btn-primary">保存设置</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{/block}

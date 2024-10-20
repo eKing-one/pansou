@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初始化和下载</title>
+    <!--  start: core js/css -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--  end: core js/css -->
+</head>
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="__STATIC__/img/logo.png" alt="" width="72" height="72">
+            <h2>初始化与下载</h2>
+            <small>使用框架thinkphp5.1。这是下载界面，只需要按照提示一步一步往下走就行了，应该很快</small>
+        </div>
+
+        <div class="container">
+            <p class="lead">1.输入一个可以连接的数据库信息，只能是mysql，且版本>=5.7.26</p>
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label for="host">主机名，如127.0.0.1（例子）</label>
+                    <input type="text" class="form-control" id="host" placeholder="" value="" required>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="port">端口（mysql通常为3306）</label>
+                    <input type="text" class="form-control" id="port" placeholder="" value="3306" required>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="username">数据库用户名</label>
+                    <input type="text" class="form-control" id="username" placeholder="" value="" required>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="passwd">数据库密码</label>
+                    <input type="text" class="form-control" id="passwd" placeholder="" value="" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="database">数据库库名</label>
+                    <input type="text" class="form-control" id="database" placeholder="" value="" required>
+                </div>
+                    <button  class="btn btn-primary m-3" id="btn1" style="width: 10%;height: 55px">确认</button>
+
+
+                <div id="tip" style="color: #1e7e34"></div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+    function ifNull(demo)
+    {
+        if(demo==null)
+        {
+            alert('禁止为空');
+            return false;
+        }
+    };
+
+    $("#btn1").click(function(){
+        $('#tip').html('<p class="lead">请稍等。。。</p><div class=\"spinner-border text-success\"></div>');
+        $.ajax({
+            type : "POST",
+            async:true,
+            timeout:2000,
+            url:"../../install/install/checkSqlvalid",
+            data:{
+                host:$("#host").val(),
+                port:$("#port").val(),
+                username:$("#username").val(),
+                passwd:$("#passwd").val(),
+                database:$("#database").val()
+            },
+            success:function(result)
+            {
+                alert(result);
+
+                window.location.href = '../../install/init/step2';
+
+                $('#tip').html('');
+            },
+            error:function (err) {
+
+                alert("出错了，请检查网络和输入是否正确。错误原因："+JSON.stringify(err));
+                $('#tip').html('');
+            }
+        });
+    });
+</script>
+</html>

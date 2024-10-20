@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <title>资源详情 - {$site_title}</title>
+    <meta name="keywords" content="JAVA教程,多多搜盘,网盘搜索,网盘搜索引擎,百度云搜索,百度云资源,百度网盘,云盘搜索,网盘下载" />
+    <meta name="description" content="网盘资源列表- 多多搜盘" />
+    <link href="../static/img/logo.png" rel="icon" />
+    <link href="../static/css/main.css" rel="stylesheet" />
+    <link href="../static/css/info.css" rel="stylesheet" />
+    <script src="../static/js/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 引入 layui.css -->
+    <link href="//unpkg.com/layui@2.9.17/dist/css/layui.css" rel="stylesheet">
+    <!-- 引入 layui.js -->
+    <script src="//unpkg.com/layui@2.9.17/dist/layui.js"></script>
+    <style>
+        .recomment a {
+            color: #1f1f1f;
+        }
+
+        .recomment span {
+            background: #fdfdfd;
+            color: #777;
+            font-size: 12px;
+            padding: 3px 5px;
+        }
+
+        .statement-body {
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="app">
+
+            <div class="header-wrap">
+                <header class="header">
+                    <div class="header-inner">
+                        <div class="left">
+                            <a class="router-link-active" href="/" title="首页">
+                                <div class="logo-wrap">
+                                    <img class="logo" src="{$site_logo_url}" alt="多多搜盘" />
+                                    <h2>多多搜盘</h2>
+                                </div>
+                            </a>
+                            <div class="form-wrap">
+                                <div class="search-form">
+                                    <input autocomplete="off" class="input" id="keyword" placeholder="搜一搜，啥都有..."
+                                        type="text" value="" />
+                                    <a class="search-button"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+
+            <div class="detail-page">
+                <div class="detail-page-inner">
+                    <div class="detail-content">
+                        <div id="info">
+                            {if $data == null}
+                            <div class="resource-item-wrap valid">
+                                <div class="not-found search-not-found">
+                                    <img src="/static/images/not-found.png" />
+                                    <p>哎呀，未找到相关的资源</p>
+                                </div>
+                            </div>
+                            {else}
+                            <div class="detail-wrap">
+                                <h2 class="detail-header"><span>资源详情</span></h2>
+                                <h1 class="filename">{$data.title}</h1>
+                                <div class="detail-inner-wrap">
+                                    <div class="detail-item">
+                                        <p class="detail-item-wrap">{$data.content}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resource-info">
+                                <span class="meta-item">
+                                    <span class="label">文件大小:</span><span>{$data.size== null ? 'N/A' :
+                                        $data.size}</span>
+                                </span>
+                                <span class="meta-item">
+                                    <span class="label">时间:</span><span>{$data.time|substr=0,10}</span>
+                                </span>
+                                <!-- 举报资源按钮 -->
+                                <a class="meta-item report" href="javascript:void(0);" id="report-button">
+                                    <span class="label" style="color:#1f1f1f;">举报资源</span>
+                                </a>
+                            </div>
+                            <!-- 判断是否有提取密码 -->
+                            {if $data.code != null}
+                            <div class="resource-meta">
+                                <span class="meta-item copy-item">
+                                    <span class="label">提取密码</span>
+                                    <span id="pwd">{$data.code}</span>
+                                    <span class="copy" id="copy-pwd">点击复制</span>
+                                </span>
+
+                                <span class="tip" style="display:none;">提取码复制成功</span>
+                            </div>
+                            {/if}
+                            <div class="check-wrap">
+                                <p class="result-tip">
+                                    <span class="valid">链接检测中。。</span>
+                                </p>
+                            </div>
+                            <div class="button-wrap">
+                                <a class="button" id="link" rel="nofollow" target="_blank" href="{$data.url}">前往下载</a>
+                                <a class="button2" href="javascript:void(0)" id="pay-button">打赏支持</a>
+                            </div>
+                            {/if}
+                        </div>
+
+                        {if $relatedResources != null}
+                        <div id="statement">
+                            <h2>相关资源</h2>
+                            <div class="statement-body">
+                                {volist name="relatedResources" id="item"}
+                                <div class="recomment">
+                                    <img class="filetype" style="width:15px;" src="/static/icon/dir.png" />
+                                    <a href="{:url('/resource/'.$item['id'])}">{$item.title}</a>
+                                    <span>{$item.time|substr=0,10}</span>
+                                </div>
+                                {/volist}
+                            </div>
+                        </div>
+                        {/if}
+
+                        <div id="statement">
+                            <h2>使用说明</h2>
+                            <div class="statement-body">
+                                <p>
+                                    本站内容来源于网盘资源爬虫采集。多多搜盘不复制、传播、储存任何网盘资源，也不提供资源下载服务，链接会跳转至该网盘，资源的安全性与有效性请您自行辨别。如您发现任何侵权或违规内容，欢迎通过举报功能联系我们，我们将及时处理。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧栏内容 -->
+                    <div class="right-side">
+                        <div class="ad-wrap">
+                            <div class="ad-header">
+                                <span>广告</span>
+                                <a class="more" href="#">更多</a>
+                            </div>
+                            <div class="ad-item">
+                                <img src="/ad1.jpg" alt="广告1">
+                            </div>
+                            <div class="ad-item">
+                                <img src="/ad2.jpg" alt="广告2">
+                            </div>
+                        </div>
+
+                        <div class="indicator-wrap">
+                            <div class="indicator-item"></div>
+                            <div class="indicator-item active"></div>
+                            <div class="indicator-item"></div>
+                        </div>
+
+                        <div class="hongbao">
+                            <!-- 红包或者其他内容 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 页脚 -->
+            <footer class="footer">
+                <div class="copyright-wrap">
+                    <p>{$footer_copyright}</p>
+                    <p><span class="em">友链：</span><a class="friend-link" href="https://bing.com"
+                            target="_blank">必应</a><a class="friend-link" href="https://cn.bing.com"
+                            target="_blank">必应中国</a><a class="friend-link" href="https://www.baidu.com"
+                            target="_blank">百度</a></p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../static/js/clipboard.js/2.0.9/clipboard.min.js"></script>
+
+    <!-- 举报弹窗脚本 -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // 页面载入时自动检测链接是否有效
+            function checkUrlOnLoad() {
+                var url = $('#link').attr('href');
+                // 打印或使用href值
+                console.log(url);
+                $.ajax({
+                    url: '/index/search/checkurl',
+                    type: 'GET',
+                    data: {
+                        url: url
+                    },
+                    success: function (response) {
+                        // 假设服务器返回的响应是一个JSON对象，其中包含一个'valid'字段
+                        if (response.code===1) {
+                            $('.result-tip .valid').html('网盘链接有效，可以访问');
+                        } else {
+                            $('.result-tip .valid').html('<font color="#808080">网盘链接无效，无法访问</font>');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // 处理错误情况
+                        $('.result-tip .valid').text('检测链接时发生错误，请稍后再试');
+                    }
+                });
+            }
+
+            checkUrlOnLoad(); // 调用函数进行链接检测
+            // 复制提取密码功能
+            new ClipboardJS('#copy-pwd', {
+                text: function (trigger) {
+                    return $('#pwd').text();
+                }
+            }).on('success', function (e) {
+                $(".tip").fadeIn();
+            });
+
+            // 打赏弹窗
+            $('#pay-button').on('click', function () {
+                layer.open({
+                    type: 1,
+                    title: '打赏支持',
+                    area: ['380px', '400px'], // 设置弹窗大小
+                    content: `<div style="padding: 20px;">
+                                <img src="{$wechat_qrcode_url}" alt="打赏支持" style="width: 100%; height: auto;">
+                              </div>`,
+                    success: function (layero, index) {
+                        // 弹窗成功打开后执行的回调函数
+                    }
+                });
+            });
+
+            // 举报按钮点击事件
+            $('#report-button').on('click', function () {
+                layer.open({
+                    type: 1,
+                    title: '举报资源',
+                    area: ['380px', '400px'], // 设置弹窗大小
+                    content: `<div style="padding: 20px;">
+                                <form id="report-form">
+                                    <label for="report-reason">举报原因:</label><br>
+                                    <select id="report-reason" name="reason" style="width: 100%; padding: 5px; margin: 10px 0;">
+                                        <option value="inappropriate">不适当内容</option>
+                                        <option value="copyright">侵犯版权</option>
+                                        <option value="dead_link">链接失效</option>
+                                        <option value="other">其他</option>
+                                    </select><br>
+                                    <label for="report-details">详细说明:</label><br>
+                                    <textarea id="report-details" name="details" style="width: 100%; height: 80px; padding: 5px;"></textarea><br>
+                                    <label for="report-contact">联系方式:</label><br>
+                                    <input id="report-contact" name="contact" style="width: 100%; padding: 5px; margin: 10px 0;" type="text"><br>
+                                    <button type="button" id="submit-report" style="width: 100%; padding: 10px; margin-top: 10px; background-color: #1f1f1f; color: white; border: none;">提交</button>
+                                </form>
+                              </div>`,
+                    success: function (layero, index) {
+                        $('#submit-report').on('click', function () {
+                            var reason = $('#report-reason').val();
+                            var details = $('#report-details').val();
+                            var contact = $('#report-contact').val();
+
+                            // 简单的表单验证
+                            if (!reason || !details || !contact) {
+                                layer.msg('请填写完整的举报信息', { icon: 2 });
+                                return;
+                            }
+
+                            // Ajax 提交举报信息
+                            $.ajax({
+                                type: 'POST',
+                                url: '/index/search/report',  // 后端举报接口的URL
+                                data: {
+                                    id: '{$data.id}', // 资源ID，动态传入
+                                    reason: reason,
+                                    details: details,
+                                    contact: contact
+                                },
+                                success: function (response) {
+                                    if (response.code === 1) {
+                                        layer.msg('举报已提交，感谢您的反馈！', { icon: 1 });
+                                    } else {
+                                        layer.msg('举报提交失败，请稍后再试', { icon: 2 });
+                                    }
+                                    layer.close(index); // 关闭弹窗
+                                },
+                                error: function () {
+                                    layer.msg('网络错误，请稍后再试', { icon: 2 });
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
