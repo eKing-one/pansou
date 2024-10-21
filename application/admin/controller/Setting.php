@@ -8,6 +8,10 @@ use app\common\model\Config as ConfigModel;
 use think\facade\Cache;
 class Setting extends Controller
 {
+    //
+    protected $middleware = [
+        'CheckLogin',
+    ];
     // 配置项的中文名称映射
     protected $configNames = [
         'site_title' => '网站标题',
