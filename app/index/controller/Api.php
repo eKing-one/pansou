@@ -4,8 +4,7 @@ namespace app\index\controller;
 
 use think\facade\View;
 use think\facade\Db;
-
-
+use eking\netdisk\LinkChecker;
 class Api
 {
 
@@ -39,11 +38,13 @@ class Api
     }
 
     //检测资源是否有效
+    //传入url
     //返回json
     public function checkUrl()
     {
         $url = input('get.url');
-        if (true) {
+        $check = new LinkChecker(); // 实例化 LinkChecker 类
+        if ($check->checkUrl($url)) {
             return json(['code' => 1,'msg' => '链接有效']);
         }else{
             return json(['code' => 0,'msg' => '链接无效']);

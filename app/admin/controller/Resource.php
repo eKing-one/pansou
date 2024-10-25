@@ -3,10 +3,10 @@
 namespace app\admin\controller;
 
 use think\facade\View;
-use think\Request;
+use think\facade\Request;
 use think\facade\Db;
 use app\admin\model\Resource as ResourceModel; // 使用别名来避免冲突
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx; // Excel文件解析器
+use PhpOffice\PhpSpreadsheet\IOFactory; // 引入 PhpSpreadsheet
 
 
 class Resource
@@ -53,70 +53,75 @@ class Resource
     {
         return View::fetch('import');
     }
-    // 网盘分类
-    public function category(){
-        $keyword = input('keyword');
 
-        $query = Db::name('categories')->where(function ($query) use ($keyword) {
-            if ($keyword) {
-                $query->where('title', 'like', '%' . $keyword . '%');
-            }
-        })->order('id', 'desc');
 
-        $list = $query->paginate(10, false, ['type' => 'bootstrap', 'query' => request()->param()]);
-        return View::fetch('category',['data' => $list, 'keyword' => $keyword]);
-
-    }
-
-    //批量导入数据处理
     public function importData()
     {
-        $type = 2; // 获取type参数，默认为1
-        $file = request()->file('file');
+        // 获取上传的文件
+        $file = Request::file('file');
         if (!$file) {
-            return $this->error('请选择文件');
+            return $this->error('请选择上传文件');
         }
 
-        $info = $file->move(ROOT_PATH . 'public/uploads');
-        if (!$info) {
-            return $this->error('文件上传失败');
+        // 验证文件类型
+        $ext = $file->getOriginalExtension();
+        if ($ext !== 'xlsx' && $ext !== 'xls') {
+            return $this->error('不支持的文件类型');
         }
 
-        //随机文件名
-        $filePath = $info->getFilename();
-        $filePath = ROOT_PATH . 'public/uploads/' . $filePath;
+        // 保存文件
+        $saveName = $file->move(root_path() . 'public/uploads');
+        if (!$saveName) {
+            return $this->error('文件保存失败');
+        }
 
-        $reader = new Xlsx(); // 创建Excel文件解析器
+        // 获取文件路径
+        $filePath = $saveName->getRealPath();
 
-        $spreadsheet = $reader->load($filePath); // 加载Excel文件
-
+        // 创建Excel文件解析器
+        $reader = IOFactory::createReaderForFile($filePath);
+        // 加载Excel文件
+        $spreadsheet = $reader->load($filePath);
+        //读取sheet列表
+        // 获取指定的工作表
         $sheet = $spreadsheet->getSheetByName('批量分享');
-        $rows = $sheet->toArray(); // 将工作表转换为数组
+        if (!$sheet) {
+            return $this->error('找不到指定的工作表');
+        }
+        // 将工作表转换为数组
+        $rows = $sheet->toArray();
+
         if (empty($rows)) {
             return $this->error('导入数据为空');
         }
+
         // 移除标题行
         array_shift($rows);
         $successCount = 0;
         $failCount = 0;
-
-
+        // var_dump($rows);
         // 遍历数组，导入数据到数据库
         foreach ($rows as $row) {
-            // dump($row);
-            $title = $row[1]; //链接名字
-            $content = $row[2]; //分享描述
-            $url = $row[3]; //分享链接
-            $code = $row[4]; // 文件密码
-            // 假设网盘名称存储在class字段，查询分类id
-            $categories = Db::name('categories')->where('title', $row[5])->find();
-            if ($categories) {
-                $category_id = $categories['id'];
-            } else {
-                $category_id = 0;
+            if($ext == 'xls'){ //判断xls文件则默认xls文件，则pantool批量分享的文件
+                if(empty($row['0']))continue;
+                $title = $row[0]; // 链接名字
+                $content = $row[1]; // 分享描述
+                $url = $row[2]; // 分享链接
+                $code = $row[3]; // 文件密码
+                $categories = Db::name('categories')->where('name', $row[4])->find();
+                $category_id = $categories ? $categories['id'] : 0;
+                $size = $row[5]; // 文件大小
+            }else{
+                if(empty($row['1']))continue;
+                $title = $row[1]; // 链接名字
+                $content = $row[1]; // 分享描述
+                $url = $row[3]; // 分享链接
+                $code = $row[4]; // 文件密码
+                $categories = Db::name('categories')->where('name', $row[5])->find();
+                $category_id = $categories ? $categories['id'] : 0;
+                $size = $row[12]; // 文件大小
             }
-            $size = $row[12]; //文件大小
-            // 查询是否已存在相同的文件名或链接有则跳过
+            // 查询是否已存在相同的文件名或链接，如果存在则跳过
             $in_file = Db::name('resources')->where('title', $title)->find();
             if ($in_file) {
                 $failCount++;
@@ -127,23 +132,21 @@ class Resource
             $resource->content = $content;
             $resource->url = $url;
             $resource->code = $code;
-            // 假设网盘名称存储在class字段
             $resource->category_id = $category_id;
-            // 假设文件大小存储在size字段
             $resource->size = $size;
             $resource->time = date('Y-m-d H:i:s');
 
-            if ($resource->save() === false) {
+            if (!$resource->save()) {
                 $failCount++;
-                // Log::record("保存失败: " . json_encode($resource->getError()), 'error');
             } else {
                 $successCount++;
             }
-            
         }
 
+        // 删除临时文件
         unlink($filePath);
 
+        // 返回操作结果
         return $this->success('导入成功，成功条数：' . $successCount . '，失败条数：' . $failCount);
     }
 
@@ -177,44 +180,5 @@ class Resource
         } else {
             return json(['status' => 0, 'message' => '删除失败']);
         }
-    }
-    public function regexpUrl($data)
-    {
-        // 百度匹配链接
-        $reBaidu = '/http[s]?:\/\/pan\.baidu\.com\/s\/[\w-]+/';
-        preg_match_all($reBaidu, $data, $baiduMatches, PREG_SET_ORDER);
-
-        // 阿里匹配链接
-        $reAli = '/http[s]?:\/\/[^pan]+aliyundrive\.com\/s\/[\w-]+/';
-        preg_match_all($reAli, $data, $aliMatches, PREG_SET_ORDER);
-
-        // 115匹配链接
-        $re115 = '/(https:\/\/115\.com\/s\/[\w-]+)[?#]+/i';
-        preg_match_all($re115, $data, $re115Matches, PREG_SET_ORDER);
-
-        // 夸克匹配链接
-        $reQuark = '/(https:\/\/pan\.quark\.cn\/s\/[\w-]+)/i';
-        preg_match_all($reQuark, $data, $reQuarkMatches, PREG_SET_ORDER);
-
-        // 提取码规则1 阿里
-        $reAliPwd = '/(提取码: \w{4})\s?\n链接：\s*(http[s]?:\/\/[^pan]+aliyundrive\.com\/s\/[\w-]+)/i';
-        preg_match_all($reAliPwd, $data, $aliPwdMatches, PREG_SET_ORDER);
-
-        // 提取码规则2 百度
-        $reBaiduPwd = '/(http[s]?:\/\/pan\.baidu\.com\/s\/[\w-]+)\s*(提取码:[\s]?\w{4})/i';
-        preg_match_all($reBaiduPwd, $data, $baiduPwdMatches, PREG_SET_ORDER);
-
-        // 115提取码规则1
-        $re115Pwd = '/(https:\/\/115\.com\/s\/[\w-]+)#\r\n.+?\n访问码：\s*(.{4})/i';
-        preg_match_all($re115Pwd, $data, $re115PwdMatches, PREG_SET_ORDER);
-
-        // 115提取码规则2
-        $re115Pwd2 = '/(https:\/\/115\.com\/s\/[\w-]+)[?#]+password=(.{4})/i';
-        preg_match_all($re115Pwd2, $data, $re115Pwd2Matches, PREG_SET_ORDER);
-
-        // 夸克提取码规则
-        $reQuarkPwd = '/(https:\/\/pan\.quark\.cn\/s\/[\w-]+)\?passcode=(.{4})/i';
-        preg_match_all($reQuarkPwd, $data, $reQuarkPwdMatches, PREG_SET_ORDER);
-        return $data;
     }
 }

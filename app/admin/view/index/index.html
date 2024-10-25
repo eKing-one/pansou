@@ -27,7 +27,44 @@
 
   <h2 class="sub-header">系统信息</h2>
   <div class="table-responsive">
-    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>信息项</th>
+          <th>详情</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>操作系统</td>
+          <td>{$systemInfo.os}</td>
+        </tr>
+        <tr>
+          <td>PHP版本</td>
+          <td>{$systemInfo.php}</td>
+        </tr>
+        <tr>
+          <td>服务器软件</td>
+          <td>{$systemInfo.server}</td>
+        </tr>
+        <tr>
+          <td>ThinkPHP版本</td>
+          <td>{$systemInfo.thinkphp}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sub-header">项目地址</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>项目地址</td>
+          <td><a href="https://github.com/eKing-one/pansou/" target="_blank">https://github.com/eKing-one/pansou/</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 {/block}

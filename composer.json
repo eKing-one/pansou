@@ -15,6 +15,12 @@
             "email": "liu21st@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/eKing-one/netdisk-link-checker.git"
+        }
+    ],
     "require": {
         "php": ">=7.1.0",
         "topthink/framework": "^6.0.0",
@@ -22,7 +28,8 @@
         "topthink/think-view": "^1.0",
         "topthink/think-multi-app": "^1.0",
         "liliuwei/thinkphp-jump": "^1.5",
-        "phpoffice/phpspreadsheet": "^1.29"
+        "phpoffice/phpspreadsheet": "^1.29",
+        "eking/netdisk": "dev-main"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

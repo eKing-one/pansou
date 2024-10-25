@@ -5,6 +5,7 @@ namespace app\index\controller;
 use think\facade\View;
 use think\facade\Db;
 use app\admin\model\Resource as ResourceModel;
+use app\admin\model\Category as CategoryModel;
 
 class Search
 {
@@ -51,12 +52,20 @@ class Search
             return redirect('/');
         }
         $more = input('get.more'); // 排序
-        // 构造时间筛选条件
+        //分类
+        $category = input('get.category');
+        // 获取分类列表
+        $category_list = CategoryModel::where('is_show', 1)->select();
         // 获取数据
         $list = ResourceModel::with('category')
             ->where('title', 'like', '%' . $keyword . '%')
             ->where(function ($query) use ($more) {
                 $this->buildTimeCondition($query, $more);
+            })
+            ->where(function ($query) use ($category) {
+                if ($category) {
+                    $query->where('category_id', $category);
+                }
             })
             ->order('created_at', 'DESC')
             ->paginate(15, false, ['query' => ['keyword' => $keyword]]);
@@ -69,7 +78,8 @@ class Search
         View::assign('count', $count);
         View::assign('list', $list);
         View::assign('page', $page);
-        View::assign('selected', $more);
+        View::assign('more', $more);
+        View::assign('category_list', $category_list);
         // 返回视图
         return View::fetch('list',[
             'site_title' => getConfig('site_title'),

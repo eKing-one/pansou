@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21e02320c869cbc8a315994a03bc4d84",
+    "content-hash": "2de74f96a83447a483e1751f3527b84c",
     "packages": [
+        {
+            "name": "eking/netdisk",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eKing-one/netdisk-link-checker.git",
+                "reference": "aaf31915d6df0f01918c6740a7c1ad032a553a25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eKing-one/netdisk-link-checker/zipball/aaf31915d6df0f01918c6740a7c1ad032a553a25",
+                "reference": "aaf31915d6df0f01918c6740a7c1ad032a553a25",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "eking\\netdisk\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "eKing",
+                    "email": "admin@eking.one"
+                }
+            ],
+            "description": "A class for checking the validity of various cloud storage service share links.",
+            "homepage": "https://github.com/eKing-one/netdisk-link-checker",
+            "keywords": [
+                "115",
+                "aliyun",
+                "baidu",
+                "cloud storage",
+                "link checker"
+            ],
+            "support": {
+                "source": "https://github.com/eKing-one/netdisk-link-checker/tree/main",
+                "issues": "https://github.com/eKing-one/netdisk-link-checker/issues"
+            },
+            "time": "2024-10-25T10:30:15+00:00"
+        },
         {
             "name": "ezyang/htmlpurifier",
             "version": "v4.17.0",
@@ -1452,7 +1500,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "eking/netdisk": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

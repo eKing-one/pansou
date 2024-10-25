@@ -9,7 +9,7 @@
             <h1 class="page-header">网盘分类列表</h1>
 
             <!-- 搜索表单 -->
-            <form action="{:url('admin/resource/category')}" method="get" class="form-inline">
+            <form action="{:url('admin/category/index')}" method="get" class="form-inline">
                 <div class="form-group">
                     <input type="text" name="keyword" value="{$keyword|default=''}" class="form-control" placeholder="请输入关键字">
                 </div>
@@ -19,7 +19,7 @@
             <br>
 
             <!-- 新增按钮 -->
-            <a href="{:url('admin/resource/category_add')}" class="btn btn-success">新增分类</a>
+            <a href="{:url('admin/category/add')}" class="btn btn-success">新增分类</a>
 
             <br><br>
 
@@ -30,8 +30,8 @@
                             <th>序号（ID）</th>
                             <th>网盘名称</th>
                             <th>URL</th>
+                            <th>前台展示</th>
                             <th>创建时间</th>
-                            <th>更新时间</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -41,10 +41,10 @@
                             <td>{$list.id}</td>
                             <td>{$list.name}</td>
                             <td>{$list.url}</td>
-                            <td>{$list.created_at}</td>
+                            <td>{eq name="$list.is_show" value="1"}是{else}否{/eq}</td>
                             <td>{$list.updated_at}</td>
                             <td>
-                                <a href="{:url('admin/resource/category_edit', ['id' => $list.id])}">
+                                <a href="{:url('admin/category/edit', ['id' => $list.id])}">
                                     <button class="btn btn-primary btn-sm">修改</button>
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="deleteCategory({$list.id})" data-toggle="modal" data-target="#myModal">删除</button>
@@ -90,7 +90,7 @@
         $('#confirmDelete').click(function() {
             if (categoryId) {
                 $.ajax({
-                    url: "{:url('admin/resource/category_delete')}",
+                    url: "{:url('admin/category/delete')}",
                     type: 'POST',
                     data: {id: categoryId},
                     success: function (response) {

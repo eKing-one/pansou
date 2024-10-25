@@ -8,8 +8,6 @@ use app\admin\model\User as UserModel;
 use app\admin\model\Resource as ResourceModel;
 use app\admin\model\Report as ReportModel;
 use app\admin\model\Keyword as KeywordModel;
-// use app\admin\model\Order as OrderModel;
-// use app\admin\model\Activity as ActivityModel;
 class Index
 {
     // 应用中间件
@@ -39,16 +37,20 @@ class Index
 
         // // 获取最新动态
         // $activities = ActivityModel::order('created_at', 'desc')->limit(5)->select();
-
+        // 系统信息
+        $systemInfo = [
+            'os' => PHP_OS,
+            'php' => PHP_VERSION,
+            'server' => $_SERVER['SERVER_SOFTWARE'],
+            'thinkphp' => app()->version(),
+        ];
         // 返回视图并传递数据
         return View::fetch('index', [
             'userCount' => $userCount,
             'resourcesCount' => $resourcesCount,
             'reportsCount' => $reportsCount,
             'hotKeywordsCount' => $hotKeywordsCount,
-            // 'ordersCount' => $orderCount,
-            // 'visitsToday' => $visitsToday,
-            // 'activities' => $activities,
+            'systemInfo' => $systemInfo
         ]);
     }
 

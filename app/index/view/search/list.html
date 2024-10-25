@@ -56,11 +56,17 @@
                                     <p class="tip"><span data-v-10187df5="">为您找到相关结果约 <span class="em">{$count}</span>
                                             条</span></p>
                                     <p class="date-filter"><span>时间:</span>
-                                        <a {if condition="$selected eq '1' || empty($selected)"}class="selected"{/if} href="?more=1">全部</a>
-                                        <a {if condition="$selected eq '2'"}class="selected"{/if} href="?more=2">最近一月</a>
-                                        <a {if condition="$selected eq '3'"}class="selected"{/if} href="?more=3">最近半年</a>
-                                        <a {if condition="$selected eq '4'"}class="selected"{/if} href="?more=4">最近一年</a>
+                                        <a {if condition="$more eq '1' || empty($more)"}class="selected"{/if} href="?more=1">全部</a>
+                                        <a {if condition="$more eq '2'"}class="selected"{/if} href="?more=2">最近一月</a>
+                                        <a {if condition="$more eq '3'"}class="selected"{/if} href="?more=3">最近半年</a>
+                                        <a {if condition="$more eq '4'"}class="selected"{/if} href="?more=4">最近一年</a>
                                     </p>
+                                    <p class="date-filter"><span>网盘:</span>
+                                        {volist name='category_list' id='category'}
+                                        <a href="?{if $more != '' && !empty($more)}more={$more}&{/if}category={$category.id}">{$category.name}</a>
+                                        {/volist}
+                                    </p>
+                                    
                                 </div>
                                 <!-- 现有搜索结果 -->
 
