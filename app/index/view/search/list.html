@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <title>{$keyword}搜索结果 - {$site_title}</title>
+    <meta name="keywords" content="{$site_title},{$site_keywords}" />
+    <meta name="description" content="{$keyword}搜索结果 - {$site_title}" />
+    <link href="/static/img/logo.png" rel="icon" />
+    <link href="/static/css/main.css" rel="stylesheet" />
+    <link href="/static/css/list.css" rel="stylesheet" />
+    <script src="/static/js/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/static/js/pan.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8495681715028832"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="app">
+            <div class="header-wrap">
+                <header class="header">
+                    <div class="header-inner">
+                        <div class="left">
+                            <a class="router-link-active" href="/" title="首页">
+                                <div class="logo-wrap"><img class="logo" src="{$site_logo_url}" alt="{$site_title}" />
+                                    <h2>{$site_title}</h2>
+                                </div>
+                            </a>
+                            <div class="form-wrap">
+                                <div class="search-form"><input autocomplete="off" class="input" id="keyword"
+                                        placeholder="搜一搜" type="text" value="{$keyword}" /><a class="search-button"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="user-wrap">
+                                <!-- 用户中心 -->
+                                <img class="avatar" src="/static/icon/user.png">
+                                <!-- 结束 -->
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+            <div class="result-page">
+                <div class="main">
+                    <!-- 左侧内容 -->
+                    <div class="search-result">
+                        <div class="result-inner">
+                            <!-- 这里是现有的内容 -->
+                            <div class="result-wrap">
+                                <div class="resource-item-wrap valid">
+                                    <p class="tip"><span data-v-10187df5="">为您找到相关结果约 <span class="em">{$count}</span>
+                                            条</span></p>
+                                    <p class="date-filter"><span>时间:</span>
+                                        <a {if condition="$selected eq '1' || empty($selected)"}class="selected"{/if} href="?more=1">全部</a>
+                                        <a {if condition="$selected eq '2'"}class="selected"{/if} href="?more=2">最近一月</a>
+                                        <a {if condition="$selected eq '3'"}class="selected"{/if} href="?more=3">最近半年</a>
+                                        <a {if condition="$selected eq '4'"}class="selected"{/if} href="?more=4">最近一年</a>
+                                    </p>
+                                </div>
+                                <!-- 现有搜索结果 -->
+
+                                {if $count == 0}
+                                <div class="resource-item-wrap valid">
+                                    <div class="not-found search-not-found">
+                                        <img src="/static/images/not-found.png" />
+                                        <p>哎呀，未找到相关的资源</p>
+
+                                    </div>
+                                </div>
+                                {else}
+                                {volist name='list' id='data'}
+                                <div class="resource-item-wrap valid">
+                                    <div class="resource-item"><img class="filetype" src="/static/icon/dir.png" />
+                                        <div class="resource-info">
+                                            <h3 class="resource-title"><a class="valid"
+                                                    href="{:url('/resource/'.$data.id)}"><mark>{$data.title}</mark></a>
+                                            </h3>
+                                            <div class="detail-wrap"></div>
+                                            <div class="resource-meta"><span class="meta-item"><span
+                                                        class="label">文件大小</span> <span class="em">{$data.size== null ?
+                                                        'N/A' : $data.size}</span></span>
+                                                <span class="meta-item"><span class="label">来源</span> <span
+                                                        class="em">{$data.category.name|default='未知网盘'}</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="other-info">
+                                            <p class="time">{$data.created_at|date='Y-m-d'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/volist}
+                                {$page|raw}
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 新增右侧栏 -->
+                    <div class="right-side">
+                        <div class="ad-wrap">
+                            <div class="ad-header">
+                                <span>广告</span>
+                                <a class="more" href="#">更多</a>
+                            </div>
+                            <div class="ad-item">
+                                <img src="/static/ad1.jpg" alt="广告1">
+                            </div>
+                            <div class="ad-item">
+                                <img src="/static/ad2.jpg" alt="广告2">
+                            </div>
+                        </div>
+
+                        <!-- <div class="indicator-wrap">
+                            <div class="indicator-item"></div>
+                            <div class="indicator-item active"></div>
+                            <div class="indicator-item"></div>
+                        </div> -->
+
+                        <div class="hongbao">
+                            <!-- 红包或者其他内容 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="copyright-wrap">
+                <p>{$footer_copyright}</p>
+                <p><span class="em">友链：</span><a class="friend-link" href="https://bing.com" target="_blank">必应</a><a
+                        class="friend-link" href="https://cn.bing.com" target="_blank">必应中国</a>
+                </p>
+            </div>
+            <script>$(function () { $(".search-button").click(function (e) { Pan.search($("#keyword").val()); }); $("#keyword").keypress(function (e) { if (event.keyCode == "13") { Pan.search($("#keyword").val()); } }); Pan.collect(); });</script>
+        </footer>
+    </div>
+</body>
+
+</html>

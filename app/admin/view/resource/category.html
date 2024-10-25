@@ -1,0 +1,111 @@
+{extend name="base" /}
+
+{block name="title"}分类列表{/block}
+{block name="content"}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">网盘分类列表</h1>
+
+            <!-- 搜索表单 -->
+            <form action="{:url('admin/resource/category')}" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="keyword" value="{$keyword|default=''}" class="form-control" placeholder="请输入关键字">
+                </div>
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+
+            <br>
+
+            <!-- 新增按钮 -->
+            <a href="{:url('admin/resource/category_add')}" class="btn btn-success">新增分类</a>
+
+            <br><br>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>序号（ID）</th>
+                            <th>网盘名称</th>
+                            <th>URL</th>
+                            <th>创建时间</th>
+                            <th>更新时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name='data' id='list'}
+                        <tr>
+                            <td>{$list.id}</td>
+                            <td>{$list.name}</td>
+                            <td>{$list.url}</td>
+                            <td>{$list.created_at}</td>
+                            <td>{$list.updated_at}</td>
+                            <td>
+                                <a href="{:url('admin/resource/category_edit', ['id' => $list.id])}">
+                                    <button class="btn btn-primary btn-sm">修改</button>
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteCategory({$list.id})" data-toggle="modal" data-target="#myModal">删除</button>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            </div>
+            {$data->render()|raw}
+        </div>
+    </div>
+</div>
+
+<!-- 删除确认模态框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">确认删除</h4>
+            </div>
+            <div class="modal-body">
+                确定要删除该分类吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">确认删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var categoryId;
+
+    function deleteCategory(id) {
+        categoryId = id;
+    }
+
+    $(document).ready(function() {
+        $('#confirmDelete').click(function() {
+            if (categoryId) {
+                $.ajax({
+                    url: "{:url('admin/resource/category_delete')}",
+                    type: 'POST',
+                    data: {id: categoryId},
+                    success: function (response) {
+                        if (response.status == 1) {
+                            location.reload();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('请求出错，请稍后再试！');
+                    }
+                });
+            }
+        });
+    });
+</script>
+{/block}

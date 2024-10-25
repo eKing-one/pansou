@@ -1,0 +1,33 @@
+{extend name="base" /}
+
+{block name="title"}首页{/block}
+{block name="content"}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <h1 class="page-header">数据展示</h1>
+
+  <!-- 仪表盘统计信息 -->
+  <div class="row placeholders">
+    <div class="col-xs-6 col-sm-3 placeholder">
+      <h4>用户总数</h4>
+      <span class="text-muted">{$userCount}</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+      <h4>资源总数</h4>
+      <span class="text-muted">{$resourcesCount}</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+      <h4>举报数量</h4>
+      <span class="text-muted">{$reportsCount}</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+      <h4>搜索词数量</h4>
+      <span class="text-muted">{$hotKeywordsCount}</span>
+    </div>
+  </div>
+
+  <h2 class="sub-header">系统信息</h2>
+  <div class="table-responsive">
+    
+  </div>
+</div>
+{/block}

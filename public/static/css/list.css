@@ -236,8 +236,15 @@ input[type=text] {
 .header .header-inner .van-button {
 	padding: 0 10px
 }
-
-.header .header-inner .avatar {
+.header .header-inner .user-wrap {
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 6px; 
+	padding-right: 6px; 
+}
+.header .header-inner .user-wrap .avatar {
 	cursor: pointer;
 	border-radius: 50%;
 	width: 32px;
@@ -316,10 +323,14 @@ input[type=text] {
 		display: none
 	}
 	.header .header-inner .form-wrap {
-		width: 280px
+		width: auto;
 	}
 	.header .header-inner .form-wrap .search-way {
-		font-size: 10px
+		font-size: 10px;
+	}
+	.header .header-inner .user-wrap .avatar {
+		width: 30px;
+		height: 30px;
 	}
 }
 

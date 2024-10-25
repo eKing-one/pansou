@@ -16,23 +16,33 @@
         }
     ],
     "require": {
-        "php": ">=5.6.0",
-        "topthink/framework": "5.1.*",
-        "topthink/think-captcha": "2.0.*",
+        "php": ">=7.1.0",
+        "topthink/framework": "^6.0.0",
+        "topthink/think-orm": "^2.0",
+        "topthink/think-view": "^1.0",
+        "topthink/think-multi-app": "^1.0",
+        "liliuwei/thinkphp-jump": "^1.5",
         "phpoffice/phpspreadsheet": "^1.29"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.2",
+        "topthink/think-trace":"^1.0"
     },
     "autoload": {
         "psr-4": {
-            "app\\": "application"
+            "app\\": "app"
+        },
+        "psr-0": {
+            "": "extend/"
         }
-    },
-    "extra": {
-        "think-path": "thinkphp"
     },
     "config": {
-        "preferred-install": "dist",
-        "allow-plugins": {
-            "topthink/think-installer": true
-        }
+        "preferred-install": "dist"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php think service:discover",
+            "@php think vendor:publish"
+        ]
     }
 }
