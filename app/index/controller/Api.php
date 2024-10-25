@@ -39,22 +39,12 @@ class Api
     }
 
     //检测资源是否有效
-    //传入url
     //返回json
     public function checkUrl()
     {
         $url = input('get.url');
-        // 发送请求到目标URL
-        $url = 'https://api.skyour.cn/api.php?url='.$url;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        $data = json_decode($response, true);
-        if ($data) {
-            return json(['code' => $data['code'],'msg' => $data['msg']]);
+        if (true) {
+            return json(['code' => 1,'msg' => '链接有效']);
         }else{
             return json(['code' => 0,'msg' => '链接无效']);
         }
