@@ -5,6 +5,7 @@ namespace app\index\controller;
 use think\facade\View;
 use think\facade\Db;
 use eking\netdisk\LinkChecker;
+use think\facade\Session;
 class Api
 {
 
@@ -59,6 +60,13 @@ class Api
         $reason = input('post.reason');
         $details = input('post.details');
         $contact = input('post.contact');
+        // 获取验证码
+        $captcha = input('post.captcha');
+
+        // 验证验证码是否正确
+        if(!captcha_check($captcha)){
+            return json(['code' => 0, 'msg' => '验证码错误！']);
+        };
 
         // 数据验证，确保输入不为空
         if (empty($id) || empty($reason)) {

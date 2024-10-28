@@ -111,6 +111,7 @@ class Resource
                 $categories = Db::name('categories')->where('name', $row[4])->find();
                 $category_id = $categories ? $categories['id'] : 0;
                 $size = $row[5]; // 文件大小
+                $time = $row[6] ? $row[6] : date('Y-m-d H:i:s');
             }else{
                 if(empty($row['1']))continue;
                 $title = $row[1]; // 链接名字
@@ -120,6 +121,7 @@ class Resource
                 $categories = Db::name('categories')->where('name', $row[5])->find();
                 $category_id = $categories ? $categories['id'] : 0;
                 $size = $row[12]; // 文件大小
+                $time = date('Y-m-d H:i:s');
             }
             // 查询是否已存在相同的文件名或链接，如果存在则跳过
             $in_file = Db::name('resources')->where('title', $title)->find();
@@ -128,13 +130,13 @@ class Resource
                 continue;
             }
             $resource = new ResourceModel();
-            $resource->title = $title;
-            $resource->content = $content;
-            $resource->url = $url;
-            $resource->code = $code;
-            $resource->category_id = $category_id;
-            $resource->size = $size;
-            $resource->time = date('Y-m-d H:i:s');
+            $resource->title = $title; // 资源标题
+            $resource->content = $content; // 资源描述
+            $resource->url = $url;  // 资源链接
+            $resource->code = $code; // 资源密码
+            $resource->category_id = $category_id; // 资源分类
+            $resource->size = $size; // 资源大小
+            $resource->created_at = $time; // 资源创建时间
 
             if (!$resource->save()) {
                 $failCount++;

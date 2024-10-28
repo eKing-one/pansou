@@ -51,9 +51,9 @@
                             <td>{$list.contact}</td>
                             <td>{$list.created_at}</td>
                             <td>
-                                <a href="{:url('admin/report/edit', ['id' => $list.id])}">
+                                <!-- <a href="{:url('admin/report/edit', ['id' => $list.id])}">
                                     <button class="btn btn-primary btn-sm">修改</button>
-                                </a>
+                                </a> -->
                                 <button type="button" class="btn btn-danger btn-sm" onclick="deleteReport({$list.id})" data-toggle="modal" data-target="#myModal">删除</button>
                             </td>
                         </tr>

@@ -270,6 +270,11 @@
                                     <textarea id="report-details" name="details" style="width: 100%; height: 80px; padding: 5px;"></textarea><br>
                                     <label for="report-contact">联系方式:</label><br>
                                     <input id="report-contact" name="contact" style="width: 100%; padding: 5px; margin: 10px 0;" type="text"><br>
+                                    <!-- 验证码部分 -->
+                                    <div class="captcha-container" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <input id="captcha" name="captcha" placeholder="请输入验证码" style="width: calc(50% - 5px); padding: 5px;" type="text" required>
+                                        <img src="{:captcha_src()}" alt="点击刷新验证码" style="cursor: pointer; width: calc(50% - 5px);" onclick="this.src=this.src+'?'+Math.random()">
+                                    </div><br>
                                     <button type="button" id="submit-report" style="width: 100%; padding: 10px; margin-top: 10px; background-color: #1f1f1f; color: white; border: none;">提交</button>
                                 </form>
                               </div>`,
@@ -278,9 +283,10 @@
                             var reason = $('#report-reason').val();
                             var details = $('#report-details').val();
                             var contact = $('#report-contact').val();
+                            var captcha = $('#captcha').val();
 
                             // 简单的表单验证
-                            if (!reason || !details || !contact) {
+                            if (!reason || !details || !contact || !captcha) {
                                 layer.msg('请填写完整的举报信息', { icon: 2 });
                                 return;
                             }
@@ -293,7 +299,8 @@
                                     id: '{$data.id}', // 资源ID，动态传入
                                     reason: reason,
                                     details: details,
-                                    contact: contact
+                                    contact: contact,
+                                    captcha: captcha
                                 },
                                 success: function (response) {
                                     if (response.code === 1) {

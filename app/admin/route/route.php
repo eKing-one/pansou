@@ -8,9 +8,8 @@
 
 // application/admin/route.php
 use think\facade\Route;
-Route::get('dashboard', 'index/dashboard');
+// Route::get('dashboard', 'index/dashboard');
 
-Route::get('login', 'login/index');
-Route::post('login', 'login/login');
-Route::get('logout', 'login/logout');
+// Route::get('login', 'login/index');
+// Route::post('login', 'login/login');
 
