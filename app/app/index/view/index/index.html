@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    
+    <title>{$site_title} - 网盘资源搜索神器</title>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta name="keywords" content="{$site_keywords}" />
+    <meta name="description" content="{$site_description}" />
+    <link href="/static/img/logo.png" rel="icon" />
+    <link href="/favicon.ico" rel="shortcut icon" type="imagesearch/x-icon" />
+    <link href="/static/css/main.css" rel="stylesheet" />
+    <link href="/static/css/index.css" rel="stylesheet" />
+    <script src="/static/js/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/static/js/pan.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8495681715028832"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="index-page">
+            <div class="logo-wrap"><img class="logo" src="{$site_logo_url}" alt="{$site_title}" />
+                <h1>{$site_title}</h1>
+            </div>
+            <div class="form-wrap">
+                <div class="search-form"><input autocomplete="off" autofocus="autofocus" class="input" id="keyword"
+                        placeholder="搜一搜，啥都有..." type="text" /><span class="search-button"></span></div>
+            </div>
+            <div class="hot-wrap" id="hot">
+                <div class="inner">
+                    {volist name='hot_keywords' id='hot_keyword'}
+                        <a class="hot-item" href="{:url('/search/')}{$hot_keyword.keyword}.html">{$hot_keyword.keyword}</a>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="copyright-wrap">
+                <p>
+                    {$footer_copyright}
+                </p>
+                <p><span class="em">友链：</span><a class="friend-link" href="https://bing.com" target="_blank">必应</a><a
+                        class="friend-link" href="https://cn.bing.com" target="_blank">必应中国</a><a class="friend-link"
+                        href="https://www.baidu.com" target="_blank">百度</a>
+            </div>
+            <script>$(function () { $(".search-button").click(function (e) { Pan.search($("#keyword").val()); }); $("#keyword").keypress(function (e) { if (event.keyCode == "13") { Pan.search($("#keyword").val()); } }); Pan.collect(); });</script>
+        </footer>
+    </div>
+</body>
+
+</html>

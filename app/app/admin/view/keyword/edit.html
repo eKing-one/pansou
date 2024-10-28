@@ -1,0 +1,37 @@
+{extend name="base" /}
+
+{block name="title"}编辑关键字{/block}
+{block name="content"}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">编辑关键字</h1>
+            <form action="{:url('admin/keyword/update', ['id' => $keyword.id])}" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="keyword">关键字名称</label>
+                    
+                        <input type="text" name="name" id="keyword" class="form-control" value="{$keyword.keyword}" required>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="search_count">搜索次数</label>
+                        <input type="text" name="search_count" id="search_count" class="form-control" value="{$keyword.search_count}" required>
+                </div>
+                <div class="form-group">
+                    <label for="is_audit">是否审核</label>
+                    <select name="is_audit" id="is_audit" class="form-control" value="{$keyword.is_audit}" required>
+                        <option value="1" {if condition="$keyword.is_audit eq 1"} selected {/if}>是</option>
+                        <option value="0" {if condition="$keyword.is_audit eq 0"} selected {/if}>否</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">更新</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{/block}

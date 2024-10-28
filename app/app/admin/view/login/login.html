@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>后台登录</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/admin/signin.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <div class="login-panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">请登录</h3>
+            </div>
+            <form class="needs-validation" novalidate action="{:url('admin/login/login')}" method="post">
+              <div class="form-group">
+                <input type="text" name="username" class="form-control" id="username" placeholder="用户名" required autofocus>
+              </div>
+              <div class="form-group">
+                <input type="password" name="password" class="form-control" id="password" placeholder="密码" required>
+              </div>
+              <div class="form-group captcha-container">
+                <input type="text" name="captcha" class="form-control captcha-input" id="captcha" placeholder="请输入验证码" required>
+                <img src="{:captcha_src()}" width="100%" height="34" alt="点击刷新验证码" class="captcha-image" onclick="this.src=this.src+'?'+Math.random()">
+              </div>
+              <button type="submit" class="btn btn-primary">登录</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

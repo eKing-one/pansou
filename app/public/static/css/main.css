@@ -1,0 +1,627 @@
+.pay-dialog {
+	width: 600px;
+	border-radius: 4px;
+	top: 40%
+}
+
+.pay-dialog h3 {
+	font-size: 17px;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px
+}
+
+.pay-dialog .intro {
+	font-size: 12px;
+	color: #666;
+	text-align: justify;
+	margin-bottom: 10px
+}
+
+.pay-dialog .content {
+	padding: 0 30px 20px
+}
+
+.pay-dialog .tab-wrap {
+	display: flex;
+	margin: 10px auto 15px;
+	justify-content: space-between
+}
+
+.pay-dialog .tab-wrap .tab-item {
+	width: 49%;
+	padding: 6px;
+	font-size: 14px;
+	text-align: center;
+	border: 1px solid #ddd;
+	transition: all .2s ease;
+	border-radius: 2px;
+	cursor: pointer
+}
+
+.pay-dialog .tab-wrap .tab-item.active, .pay-dialog .tab-wrap .tab-item:hover
+	{
+	color: #06a7ff;
+	border: 1px solid #06a7ff
+}
+
+.pay-dialog .package-wrap {
+	display: flex;
+	justify-content: space-between
+}
+
+.pay-dialog .package-wrap .package-item {
+	width: 31%;
+	padding: 20px 10px;
+	border-radius: 4px;
+	border: 2px solid #ddd;
+	text-decoration: none;
+	text-align: center;
+	color: #666;
+	font-size: 13px;
+	transition: all .2s ease
+}
+
+.pay-dialog .package-wrap .package-item.active,
+	.pay-dialog .package-wrap .package-item:hover {
+	cursor: pointer;
+	border-color: #06a7ff;
+	color: #06a7ff
+}
+
+.pay-dialog .package-wrap .package-item .price {
+	margin-top: 15px;
+	font-size: 22px;
+	font-weight: 700
+}
+
+.pay-dialog .package-wrap .package-item .tip {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px dashed #eee
+}
+
+.pay-dialog .label {
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	margin-top: 10px;
+	margin-bottom: 10px
+}
+
+.pay-dialog .pay-wrap {
+	margin-top: 15px
+}
+
+.pay-dialog .pay-wrap .paytype-wrap {
+	display: flex
+}
+
+.pay-dialog .pay-wrap .paytype {
+	display: inline-block;
+	font-size: 13px;
+	padding: 8px 20px;
+	border-radius: 2px;
+	margin-right: 10px;
+	border: 2px solid #ddd;
+	display: flex;
+	align-items: center;
+	transition: all .2s ease
+}
+
+.pay-dialog .pay-wrap .paytype .alipay {
+	color: #1296db
+}
+
+.pay-dialog .pay-wrap .paytype .wxpay {
+	color: #45bb35
+}
+
+.pay-dialog .pay-wrap .paytype i {
+	font-size: 16px;
+	margin-right: 5px
+}
+
+.pay-dialog .pay-wrap .paytype.active, .pay-dialog .pay-wrap .paytype:hover
+	{
+	cursor: pointer;
+	border-color: #06a7ff
+}
+
+.pay-dialog .tip-wrap {
+	text-align: center;
+	font-size: 14px;
+	margin-top: 10px;
+	margin-bottom: 10px
+}
+
+.pay-dialog .qrcode-wrap {
+	text-align: center
+}
+
+.pay-dialog .qrcode-wrap .confirm {
+	width: 240px
+}
+
+.pay-dialog .qrcode-wrap .qrcode {
+	padding: 10px;
+	border: 1px solid #eee;
+	background-color: #f5f5f5;
+	border-radius: 4px
+}
+
+.pay-dialog .qrcode-wrap .tip {
+	margin-top: 5px;
+	font-size: 13px;
+	display: flex;
+	align-items: center;
+	color: #666;
+	justify-content: center
+}
+
+.pay-dialog .qrcode-wrap .tip i {
+	font-size: 20px
+}
+
+.pay-dialog .qrcode-wrap .tip.danger {
+	cursor: pointer
+}
+
+.pay-dialog .qrcode-wrap .tip.danger:hover {
+	font-weight: 700
+}
+
+.pay-dialog .qrcode-wrap .tip.danger i {
+	font-size: 15px;
+	margin-left: 4px
+}
+
+.pay-dialog .success-wrap {
+	text-align: center
+}
+
+.pay-dialog .success-wrap i {
+	font-size: 80px
+}
+
+.pay-dialog .success-wrap .tip {
+	margin-top: 10px;
+	font-size: 13px
+}
+
+.pay-dialog .success-wrap .tip .num {
+	font-size: 20px;
+	font-weight: 700
+}
+
+.pay-dialog .button-wrap {
+	margin-top: 15px;
+	display: flex;
+	justify-content: center
+}
+
+.pay-dialog .button-wrap .van-button {
+	height: 40px;
+	width: 44%;
+	margin-right: 20px
+}
+
+.pay-dialog .button-wrap .van-button:last-child {
+	margin-right: 0
+}
+
+.pay-dialog .warn-tip {
+	margin-top: 10px;
+	padding: 5px;
+	color: #805232;
+	font-size: 12px;
+	border-radius: 2px;
+	background-color: #fffbe8;
+	text-align: justify;
+	border: 1px solid rgba(73, 33, 5, .2)
+}
+
+.van-dialog {
+	overflow: visible
+}
+
+.close {
+	position: absolute;
+	height: 36px;
+	width: 36px;
+	bottom: -46px;
+	left: 50%;
+	margin-left: -18px;
+	color: #fff;
+	font-size: 24px;
+	border-radius: 50%;
+	line-height: 36px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, .7)
+}
+
+.close:hover {
+	cursor: pointer;
+	background-color: #000
+}
+
+@media ( max-width :700px) {
+	.pay-dialog {
+		width: 94%;
+		top: 45%
+	}
+	.pay-dialog h3 {
+		padding: 0;
+		font-size: 15px
+	}
+	.pay-dialog .content {
+		padding: 15px
+	}
+	.pay-dialog .package-wrap {
+		flex-direction: column
+	}
+	.pay-dialog .package-wrap .package-item {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		padding: 10px;
+		justify-content: space-between;
+		margin-bottom: 10px;
+		font-size: 12px
+	}
+	.pay-dialog .package-wrap .package-item:last-child {
+		margin-bottom: 0
+	}
+	.pay-dialog .package-wrap .package-item p {
+		width: 30%;
+		flex-shrink: 0
+	}
+	.pay-dialog .package-wrap .package-item .price {
+		font-size: 15px
+	}
+	.pay-dialog .package-wrap .package-item .price,
+		.pay-dialog .package-wrap .package-item .tip {
+		margin-top: 0;
+		padding: 0
+	}
+	.pay-dialog .package-wrap .package-item .tip {
+		border-top: none
+	}
+}
+
+.van-dialog .content[data-v-16dc049b] {
+	text-align: center;
+	padding: 20px 20px 10px 20px
+}
+
+.van-dialog .qrcode[data-v-16dc049b] {
+	width: 200px;
+	height: 200px
+}
+
+.van-dialog .tip[data-v-16dc049b] {
+	font-size: 13px;
+	color: #666
+}
+
+.van-dialog .tip.logout[data-v-16dc049b] {
+	margin-top: 15px
+}
+
+.van-dialog .tip a[data-v-16dc049b] {
+	font-size: 13px;
+	margin-top: 10px
+}
+
+.van-dialog.info-dialog .vipinfo[data-v-16dc049b] {
+	margin: 15px 0;
+	padding: 10px;
+	border-radius: 4px;
+	background-color: rgba(252, 138, 0, .2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 13px;
+	text-align: left
+}
+
+.van-dialog.info-dialog .vipinfo .em[data-v-16dc049b] {
+	margin-bottom: 5px
+}
+
+.van-dialog.info-dialog .vipinfo .van-button[data-v-16dc049b] {
+	padding: 0 10px
+}
+
+.van-dialog .content[data-v-243f40c4] {
+	text-align: center;
+	padding: 20px 20px 10px 20px
+}
+
+.van-dialog .qrcode[data-v-243f40c4] {
+	width: 200px;
+	height: 200px
+}
+
+.van-dialog .tip[data-v-243f40c4] {
+	font-size: 13px;
+	color: #666
+}
+
+.van-dialog .tip.logout[data-v-243f40c4] {
+	margin-top: 15px
+}
+
+.van-dialog .tip a[data-v-243f40c4] {
+	font-size: 13px;
+	margin-top: 10px
+}
+
+.van-dialog .intro ul[data-v-243f40c4] {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	background-color: #f2f2f2;
+	padding: 8px;
+	border-radius: 4px;
+	font-size: 12px;
+	color: #666
+}
+
+.van-dialog.info-dialog .vipinfo[data-v-243f40c4] {
+	margin: 15px 0;
+	padding: 10px;
+	border-radius: 4px;
+	background-color: rgba(252, 138, 0, .2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 13px;
+	text-align: left
+}
+
+.van-dialog.info-dialog .vipinfo .em[data-v-243f40c4] {
+	margin-bottom: 5px
+}
+
+.van-dialog.info-dialog .vipinfo .van-button[data-v-243f40c4] {
+	padding: 0 10px
+}
+
+.feedback-wrap {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	width: 44px;
+	display: flex;
+	flex-direction: column
+}
+
+.feedback-wrap .feedback-item {
+	width: 44px;
+	height: 44px;
+	display: flex;
+	margin-top: 15px;
+	cursor: pointer;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	background-color: #06a7ff;
+	box-shadow: 3px 3px 14px 0 rgba(0, 0, 0, .2), -3px -3px 14px 0
+		rgba(0, 0, 0, .2)
+}
+
+.feedback-wrap .feedback-item .img {
+	width: 24px;
+	height: 24px
+}
+
+.feedback-wrap .feedback-item:hover .hover-tip {
+	visibility: visible;
+	opacity: 1;
+	bottom: 0
+}
+
+.feedback-wrap .feedback-item .hover-tip {
+	width: 180px;
+	padding: 10px;
+	display: flex;
+	visibility: hidden;
+	opacity: 0;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	text-align: center;
+	border-radius: 4px;
+	right: 60px;
+	bottom: -60px;
+	border: 1px solid #eee;
+	background-color: #fff;
+	transition: all .2s ease .1s;
+	box-shadow: 2px 2px 14px 0 rgba(0, 0, 0, .05), -2px -2px 14px 0
+		rgba(0, 0, 0, .05)
+}
+
+.feedback-wrap .feedback-item .hover-tip:after {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	right: -12px;
+	bottom: 10px;
+	z-index: 1;
+	border-top: 10px solid transparent;
+	border-left: 12px solid #eee;
+	border-bottom: 10px solid transparent
+}
+
+.feedback-wrap .feedback-item .hover-tip:before {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	right: -10px;
+	bottom: 10px;
+	z-index: 2;
+	border-top: 10px solid transparent;
+	border-left: 12px solid #fff;
+	border-bottom: 10px solid transparent
+}
+
+.feedback-wrap .feedback-item .hover-tip .text {
+	font-weight: 700;
+	color: #333
+}
+
+.feedback-wrap .feedback-item .hover-tip img {
+	width: 160px
+}
+
+@media ( max-width :700px) {
+	.feedback-wrap {
+		display: none
+	}
+}
+
+.copyright-wrap {
+	font-size: 12px;
+	color: #666;
+	padding: 15px 0;
+	max-width: 800px;
+	margin: auto;
+	text-align: center
+}
+
+.copyright-wrap p {
+	margin-bottom: 5px
+}
+
+.copyright-wrap p:last-child {
+	margin-bottom: 0
+}
+
+.copyright-wrap .em {
+	font-weight: 700
+}
+
+.copyright-wrap a {
+	color: inherit
+}
+
+.copyright-wrap .friend-link {
+	margin-right: 10px
+}
+
+@media ( max-width :700px) {
+	.copyright-wrap {
+		margin-left: 10px;
+		padding: 10px
+	}
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box
+}
+
+html {
+	font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 14px;
+	line-height: 1.5;
+	word-spacing: 1px;
+	letter-spacing: 1px
+}
+
+body, html {
+	height: 100%
+}
+
+a {
+	color: #2440b3;
+	text-decoration: none;
+	font-weight: 500
+}
+
+a:hover {
+	text-decoration: underline
+}
+
+input[type=text] {
+	-webkit-appearance: none
+}
+
+.inner-block {
+	width: 1000px
+}
+
+.danger {
+	color: #fa5555
+}
+
+.warning {
+	color: #e6a23c
+}
+
+.success {
+	color: #34b968
+}
+
+.theme {
+	color: #06a7ff
+}
+
+.em {
+	font-weight: 700
+}
+
+.cursor {
+	cursor: pointer
+}
+
+@media ( max-width :700px) {
+	.inner-block {
+		width: 100%
+	}
+}
+
+#app {
+	height: 100%
+}
+
+.ad-footer {
+	position: fixed;
+	z-index: 1000;
+	display: none;
+	bottom: 0;
+	font-size: 0;
+	word-spacing: 0;
+	border-top: 1px solid #eee
+}
+
+.ad-footer .close {
+	position: absolute;
+	background-color: #fff;
+	font-size: 12px;
+	color: #333;
+	padding: 2px 4px;
+	top: 0;
+	right: 0
+}
+
+.ad-footer img {
+	width: 100%
+}
+
+@media ( max-width :700px) {
+	.ad-footer {
+		display: flex
+	}
+}
+
+.hide{display:none;}
+
+a[href*=cnzz]{display:none;}

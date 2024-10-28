@@ -1,0 +1,37 @@
+{extend name="base" /}
+
+{block name="title"}编辑用户{/block}
+{block name="content"}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">编辑用户</h1>
+            <form action="{:url('admin/user/update', ['id' => $user.id])}" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="username">姓名</label>
+                    
+                        <input type="text" name="name" id="username" class="form-control" value="{$user.username}" required>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    
+                        <input type="email" name="email" id="email" class="form-control" value="{$user.email}" required>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    
+                        <input type="password" name="password" id="password" class="form-control">
+                    
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">更新</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{/block}

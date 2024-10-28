@@ -1,0 +1,99 @@
+{extend name="base" /}
+
+{block name="title"}关键字列表{/block}
+{block name="content"}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">关键字列表</h1>
+            <form action="{:url('admin/keyword/index')}" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="keyword" value="{$keyword|default=''}" class="form-control" placeholder="请输入关键字">
+                </div>
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+            <a href="{:url('admin/keyword/add')}" class="btn btn-success pull-right">新增关键字</a>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>关键字</th>
+                    <th>搜索次数</th>
+                    <th>是否审核</th>
+                    <th>创建时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.keyword}</td>
+                    <td>{$vo.search_count}</td>
+                    <td>{$vo.is_audit}</td>
+                    <td>{$vo.created_at}</td>
+                    <td>
+                        <a href="{:url('admin/keyword/edit', ['id' => $vo.id])}" class="btn btn-warning btn-xs">编辑</a>
+                        <a href="javascript:;" onclick="showDeleteModal({$vo.id})" class="btn btn-danger btn-xs">删除</a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            {$list->render()|raw}
+        </div>
+    </div>
+</div>
+
+<!-- 删除关键字的模态框 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">确认删除</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                您确定要删除此关键字吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var keywordIdToDelete = null;
+
+    function showDeleteModal(id) {
+        keywordIdToDelete = id;
+        $('#deleteModal').modal('show');
+    }
+
+    $(document).ready(function () {
+        $('#confirmDeleteBtn').click(function () {
+            if (keywordIdToDelete !== null) {
+                $.ajax({
+                    url: "{:url('admin/keyword/delete')}",
+                    type: 'POST',
+                    data: {id: keywordIdToDelete}, // 添加 CSRF 令牌
+                    success: function (response) {
+                        if (response.status == 1) {
+                            location.reload();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('请求出错，请稍后再试！');
+                    }
+                });
+            }
+        });
+    });
+</script>
+{/block}

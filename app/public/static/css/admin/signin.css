@@ -1,0 +1,68 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  font-family: 'Roboto', sans-serif;
+}
+.login-panel {
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.login-panel .panel-heading {
+  margin-bottom: 20px;
+}
+.login-panel .panel-heading h3 {
+  color: #333;
+}
+.login-panel .form-group {
+  margin-bottom: 20px;
+}
+.login-panel .form-group .form-control {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.login-panel .form-group .form-control:focus {
+  border-color: #007bff;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,119,255,0.6);
+}
+.captcha-container {
+  position: relative;
+}
+.captcha-input {
+  width: calc(50% - 5px);
+  display: inline-block;
+  vertical-align: top;
+}
+.captcha-image {
+  display: inline-block;
+  width: calc(50% - 5px);
+  vertical-align: top;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.captcha-image:hover {
+  opacity: 0.8;
+}
+.login-panel .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+.login-panel .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <title>个人中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="applicable-device" content="pc">
+    <meta name="referrer" content="no-referrer" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/jackedup.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+<body class="    page-user-dashboard user-block bg
+">
+    <div class="container-fluid header-block">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="/">
+                    <img class="logo" src="/static/images/logo.png" />
+                </a>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="search-form">
+                    <input type="text" class="word" autocomplete="off" placeholder="请输入您要搜索的关键词 ..." value="">
+                    <a class="btn-submit" href="javascript:void(0);">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-search"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <a class="user" href="/user" title="会员中心">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-account"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <!-- <div class="user-switch">
+            <div class="btn-group" role="group" aria-label="...">
+                <a type="button" class="btn btn-default -active" href="/user">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-user-info"></use>
+                    </svg>
+                    基本资料
+                </a>
+                <a type="button" class="btn btn-default " href="/user/vip">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-member-state"></use>
+                    </svg>
+                    会员状态
+                </a>
+            </div>
+            &nbsp;
+            <div class="btn-group" role="group" aria-label="...">
+                <a type="button" class="btn btn-default " href="/user/list">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-user-purchased"></use>
+                    </svg>
+                    已购资源
+                </a>
+            </div>
+            &nbsp;
+            <div class="btn-group" role="group" aria-label="...">
+                <a type="button" class="btn btn-default " href="/index/user/czlist">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-user-pea-change"></use>
+                    </svg>
+                    充值记录
+                </a>
+            </div>
+        </div> -->
+        <div class="account">
+            <div class="avatar">
+                <img src="https://thirdqq.qlogo.cn/g?b=oidb&k=yhw0ibK7HSRoG0Te32HYnyQ&s=100">
+            </div>
+            <div class="email">test</div>
+            <div class="name">狗粮：0 颗</div>
+            <div class="operation">
+                <div class="user-switch">
+                    <a class="btn-renew" href="/user/info">修改资料</a> &nbsp;
+
+                    <a class="btn-renew" href="javascript:void(0);" data-toggle="modal"
+                        data-target=".user-renew-dialog">充值狗粮</a> &nbsp;
+                    <a class="btn-renew" href="javascript:void(0);" data-toggle="modal" data-target=".user-vip-dialog">
+                        <font color="red">赞助会员</font>
+                    </a> &nbsp;
+                    <a class="btn-renew" href="/user/fs">工单查询</a> &nbsp;
+                    <a class="btn-logout" href="/index/user/out">退出账户</a>
+                </div>
+                <div class="user-switch">
+                    <a class="btn-renew" href="/user/info">修改资料</a> &nbsp;
+
+                    <a class="btn-renew" href="javascript:void(0);" data-toggle="modal"
+                        data-target=".user-renew-dialog">充值狗粮</a> &nbsp;
+                    <a class="btn-renew" href="javascript:void(0);" data-toggle="modal" data-target=".user-vip-dialog">
+                        <font color="red">赞助会员</font>
+                    </a> &nbsp;
+                    <a class="btn-renew" href="/user/fs">工单查询</a> &nbsp;
+                    <a class="btn-logout" href="/index/user/out">退出账户</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade user-renew-dialog">
+        <div class="modal-dialog">
+            <div class="modal-content form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">余额充值</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="summary">
+                        您当前的余额为 <strong class="pea">0</strong> 狗粮，充值后系统会将狗粮冲入您的账户。
+                    </div>
+                    <div class="form-group">
+                        请填入需要充值的狗粮：
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control input-lg money" placeholder="请填写狗粮" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-3 control-label">支付方式：</label>
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                <input type="radio" name="type" value="alipay" checked><img src="/static/images/zfb.jpg"
+                                    width="120">
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="type" value="wxpay"><img src="/static/images/wx.jpg"
+                                    width="120">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-lg btn-block btn-renew">立即充值</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade user-vip-dialog">
+        <div class="modal-dialog">
+            <div class="modal-content form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">开通会员</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pea-card">
+                        <a class="card" target="_blank">
+                            <span class="type">月费会员</span>
+                            <span class="price">¥ 99 <label
+                                    style="font-size:14px;font-weight:normal;text-decoration:line-through;">¥
+                                    299</label></span>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" onclick="vipup(0,'alipay');" class="btn btn-info ">支付宝</button>
+                                <button type="button" onclick="vipup(0,'wxpay');" class="btn btn-success">微信</button>
+                            </div>
+                        </a>
+                        <a class="card" target="_blank">
+                            <span class="type">年费会员</span>
+                            <span class="price">¥ 199 <label
+                                    style="font-size:14px;font-weight:normal;text-decoration:line-through;">¥
+                                    399</label></span>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" onclick="vipup(1,'alipay');" class="btn btn-info ">支付宝</button>
+                                <button type="button" onclick="vipup(1,'wxpay');" class="btn btn-success">微信</button>
+                            </div>
+                        </a>
+                        <a class="card" target="_blank">
+                            <span class="type">永久会员</span>
+                            <span class="price">¥ 299 <label
+                                    style="font-size:14px;font-weight:normal;text-decoration:line-through;">¥
+                                    399</label></span>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" onclick="vipup(2,'alipay');" class="btn btn-info ">支付宝</button>
+                                <button type="button" onclick="vipup(2,'wxpay');" class="btn btn-success">微信</button>
+                            </div>
+                            <span class="promotion">8 折</span>
+                        </a>
+                        <div class="well">
+                            <h4>
+                                <月费>每天可免费获取下载10次
+                                    <br>
+                                    <年费>每天可免费获取下载15次
+                                        <br>
+                                        <终身>每天可免费获取下载20次
+                            </h4>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade user-change-password-dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="password" class="form-control old-password" placeholder="原始密码" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control new-password" placeholder="新密码" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control password-confirmation" placeholder="重复新密码"
+                            value="" />
+                    </div>
+                    <div class="form-group">
+                        <div class="alert" style="display:none;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-save">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--[if lt IE 9]><script src="/static/js/html5shiv.min.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="/static/js/respond.min.js"></script><![endif]-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>
