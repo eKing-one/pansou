@@ -7,7 +7,7 @@
 
 ## 演示地址
 
- - https://www.1620.top
+ - https://www.xinxitan.com
 
 ## 更新记录
 
